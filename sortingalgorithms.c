@@ -9,116 +9,160 @@
 * as needed by the sorting algorithms here.
 */
 
-void swapRecords(Record *a, Record *b) 
+void swapRecords(Record *a, Record *b, unsigned long *steps) 
 {
     Record temp;
-
     temp = *a;
+    (*steps)++;
     *a = *b;
+    (*steps)++;
     *b = temp;
+    (*steps)++;
 }
 
-void merge(Record *arr, int left, int middle, int right, long *steps)
+void merge(Record *arr, int left, int middle, int right, unsigned long *steps)
 {
-    int i = 0, j = 0, k = left;
+    int i = 0;
+    (*steps)++;
+    int j = 0;
+    (*steps)++;
+    int k = left;
+    (*steps)++;
     int n1 = middle - left + 1;
+    (*steps)++;
     int n2 = right - middle;
+    (*steps)++;
 
     Record L[n1], R[n2];
+    (*steps)++;
 
-    for (i = 0; i < n1; i++)
+    for (i = 0; i < n1; i++) {
+        (*steps)++;
         L[i] = arr[left + i];
-    for (j = 0; j < n2; j++)
+        (*steps)++;
+    }
+
+    for (j = 0; j < n2; j++) {
+        (*steps)++;
         R[j] = arr[middle + 1 + j];
+        (*steps)++;
+    }
 
     i = 0;
+    (*steps)++;
     j = 0;
+    (*steps)++;
 
     while (i < n1 && j < n2) 
     {
-        (*steps)++; // comparison in merging
+        (*steps)++;
         if (L[i].idNumber <= R[j].idNumber) {
             arr[k] = L[i];
+            (*steps)++;
             i++;
+            (*steps)++;
         } else {
             arr[k] = R[j];
+            (*steps)++;
             j++;
+            (*steps)++;
         }
         k++;
+        (*steps)++;
     }
 
     while (i < n1) {
+        (*steps)++;
         arr[k] = L[i];
+        (*steps)++;
         i++;
+        (*steps)++;
         k++;
-        (*steps)++; // copying leftover
+        (*steps)++;
     }
 
     while (j < n2) {
+        (*steps)++;
         arr[k] = R[j];
+        (*steps)++;
         j++;
+        (*steps)++;
         k++;
-        (*steps)++; // copying leftover
+        (*steps)++;
     }
 }
 
-void insertionSort(Record *arr, int n, long *steps)
+void insertionSort(Record *arr, int n, unsigned long *steps)
 {
     int i, j;
     Record nKey;
 
     for (i = 1 ; i < n ; i++)
     {
-        (*steps)++; // for loop iteration
+        (*steps)++;
         nKey = arr[i];
+        (*steps)++;
         j = i - 1;
+        (*steps)++;
 
         while (j >= 0 && arr[j].idNumber > nKey.idNumber)
         {
-            (*steps)++; // comparison and shift
-            arr[j + 1] = arr[j]; // shift
-            j--;
+            (*steps)++;
+            arr[j + 1] = arr[j];
+            (*steps)++;
+            j = j - 1;
+            (*steps)++;
         }
 
         arr[j + 1] = nKey;
+        (*steps)++;
     }
 }
 
-void selectionSort(Record *arr, int n, long *steps)
+void selectionSort(Record *arr, int n, unsigned long *steps)
 {
     int idxCurrent;
     int idxLowest;
     int i, j;
 
     for(i = 0; i < n; i++) {
-        (*steps)++; // outer loop iteration
+        (*steps)++;
         idxLowest = i;
+        (*steps)++;
 
         for(j = i+1; j < n; j++) {
-            (*steps)++; // comparison in inner loop
+            (*steps)++;
             idxCurrent = j;
+            (*steps)++;
             if (arr[idxLowest].idNumber > arr[idxCurrent].idNumber) {
+                (*steps)++;
                 idxLowest = idxCurrent;
+                (*steps)++;
             }
         }
 
         if (idxLowest != i) {
-            swapRecords(&arr[i], &arr[idxLowest]);
-            (*steps)++; // swap
+            (*steps)++;
+            swapRecords(&arr[i], &arr[idxLowest], steps);
+            (*steps)++;
         } 
     }
 }
 
-void mergeSort(Record *arr, int l, int r, long *steps)
+void mergeSort(Record *arr, int l, int r, unsigned long *steps)
 {
     int m;
 
     if (l < r) {
-        (*steps)++; // recursive call step
+        (*steps)++;
         m = l + (r - l) / 2;
+        (*steps)++;
         mergeSort(arr, l, m, steps);
+        (*steps)++;
         mergeSort(arr, m + 1, r, steps);
+        (*steps)++;
         merge(arr, l, m, r, steps);
+        (*steps)++;
     }
 }
 
@@ -127,20 +171,21 @@ void mergeSort(Record *arr, int l, int r, long *steps)
 * ones given above. Make sure that the method accepts an array of
 * record structures.
 */
-void bubbleSort(Record *arr, int nSize, long *steps)
+void bubbleSort(Record *arr, int nSize, unsigned long *steps)
 {
     int i, j;
 
     for (i = 0 ; i < nSize ; i++)
     {
-        (*steps)++; // outer loop
+        (*steps)++;
         for (j = nSize - 1 ; j >= i + 1 ; j--)
         {
-            (*steps)++; // comparison
+            (*steps)++;
             if (arr[j].idNumber < arr[j - 1].idNumber)
             {
-                swapRecords(&arr[j], &arr[j - 1]);
-                (*steps)++; // swap
+                (*steps)++;
+                swapRecords(&arr[j], &arr[j - 1], steps);
+                (*steps)++;
             }
         }
     }
