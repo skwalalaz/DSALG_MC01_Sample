@@ -28,7 +28,7 @@ int main()
 
     switch (input)
     {
-        
+        /*
         case 1: // Insertion sort
 
         printf("Processing almostsorted.txt...\n");
@@ -93,7 +93,7 @@ int main()
         endTime = currentTimeMillis();
         executionTimes[6] = endTime - startTime;
         printf("Steps: %lu\n", steps);
-
+        
         break;
         
         case 2: // Selection sort
@@ -160,7 +160,7 @@ int main()
         endTime = currentTimeMillis();
         executionTimes[6] = endTime - startTime;
         printf("Steps: %lu\n", steps);
-
+        
         break;
         
         case 3: // Merge sort
@@ -229,7 +229,7 @@ int main()
         printf("Steps: %lu\n", steps);
 
         break;
-    
+        */
         case 4: // Bubble sort
 
         printf("Processing almostsorted.txt...\n");
